@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Proposal to audit and stabilize a Slack-to-monday.com AI workflow." />
+<title>Proposal | Slack–monday.com AI Workflow Stabilization</title>
+<style>
+  :root{--ink:#172033;--muted:#5e687b;--line:#e4e9f1;--bg:#f5f7fb;--card:#fff;--accent:#475ee8;--accent2:#eaf0ff;--teal:#0b8277;--gold:#a56812;--shadow:0 16px 42px rgba(23,32,51,.08)}
+  *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:1040px;margin:0 auto;padding:28px 20px 54px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px;color:var(--muted);font-size:.88rem}
+  .brand{display:flex;gap:10px;align-items:center;font-weight:750;color:var(--ink)}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;color:#fff;background:linear-gradient(135deg,#475ee8,#7e6cf3);font-weight:800}
+  .pill{padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;white-space:nowrap}
+  .hero{position:relative;overflow:hidden;padding:clamp(26px,5vw,54px);border-radius:24px;background:linear-gradient(125deg,#121c37 0%,#243c80 58%,#4f5fe7 100%);color:#fff;box-shadow:var(--shadow)}
+  .hero:after{content:"";position:absolute;width:260px;height:260px;border:1px solid rgba(255,255,255,.15);border-radius:50%;right:-70px;top:-95px;box-shadow:0 0 0 35px rgba(255,255,255,.035),0 0 0 70px rgba(255,255,255,.025)}
+  .eyebrow{font-size:.77rem;text-transform:uppercase;letter-spacing:.15em;font-weight:800;opacity:.8}.hero h1{position:relative;z-index:1;max-width:760px;font-size:clamp(2rem,4.7vw,3.5rem);line-height:1.12;letter-spacing:-.04em;margin:14px 0 18px}.hero p{position:relative;z-index:1;max-width:720px;color:#e5eaff;font-size:1.06rem;margin:0}
+  .hero-actions{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border-radius:11px;background:#fff;color:#1c2b58;font-weight:750;border:1px solid transparent}.btn.secondary{background:rgba(255,255,255,.09);color:#fff;border-color:rgba(255,255,255,.35)}
+  .quickfacts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 30px}.fact{padding:17px 18px;background:var(--card);border:1px solid var(--line);border-radius:15px}.fact small{display:block;color:var(--muted);font-weight:650;margin-bottom:5px}.fact strong{font-size:1.06rem}
+  section{margin-top:30px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:15px}.section-head h2{margin:0;font-size:1.45rem;letter-spacing:-.025em}.section-head p{color:var(--muted);margin:4px 0 0;max-width:650px}.tag{font-size:.78rem;padding:4px 8px;border-radius:7px;background:var(--accent2);color:#3447bc;font-weight:750;white-space:nowrap}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{padding:21px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 14px rgba(23,32,51,.025)}.card h3{font-size:1rem;margin:0 0 8px}.card p{margin:0;color:var(--muted)}.num{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--accent2);color:#394ed0;font-weight:850;margin-bottom:13px}.issue{display:flex;gap:12px}.issue .num{flex:0 0 34px;margin:0}.issue h3{margin:2px 0 5px}
+  .steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;counter-reset:step}.step{background:#fff;border:1px solid var(--line);border-radius:15px;padding:19px;counter-increment:step}.step:before{content:"0" counter(step);display:block;color:var(--accent);font-weight:850;font-size:.82rem;letter-spacing:.08em;margin-bottom:8px}.step h3{margin:0 0 7px;font-size:1rem}.step p{margin:0;color:var(--muted)}
+  .principle{padding:22px 24px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:#eaf8f5;color:#194d49}.principle strong{display:block;margin-bottom:5px}.principle p{margin:0}
+  .project{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:stretch}.project-main,.project-links{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}.project h3{font-size:1.25rem;margin:0 0 8px}.project p{color:var(--muted);margin:0 0 14px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}.chip{padding:6px 9px;border:1px solid var(--line);border-radius:8px;background:#f8faff;font-size:.82rem;font-weight:650;color:#35415a}.link-list{display:grid;gap:9px}.link-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 13px;border:1px solid var(--line);border-radius:10px;font-weight:700}.link-item span{color:var(--muted);font-size:.82rem;font-weight:500}
+  .rate{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:22px 24px;border:1px solid var(--line);border-radius:16px;background:#fff}.rate strong{font-size:1.5rem;color:var(--teal)}.rate p{margin:3px 0 0;color:var(--muted)}
+  .footer{margin-top:34px;padding-top:23px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}.footer strong{color:var(--ink)}
+  details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:14px}summary{cursor:pointer;font-weight:750}details p{color:var(--muted);margin-bottom:0}
+  @media(max-width:700px){.quickfacts{grid-template-columns:1fr}.grid,.steps,.project{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.section-head{align-items:flex-start;flex-direction:column}.rate{align-items:flex-start;flex-direction:column}}
+  @media print{body{background:#fff}.wrap{max-width:none;padding:0}.hero{box-shadow:none;print-color-adjust:exact;-webkit-print-color-adjust:exact}.hero-actions,.topbar .pill{display:none}.card,.fact,.step,.project-main,.project-links,.rate{break-inside:avoid;box-shadow:none}a{color:inherit}.footer{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand"><div class="brand-mark">SN</div><span>Sajjad Ali Noor <span style="font-weight:500;color:var(--muted)">/ Project Proposal</span></span></div>
+    <div class="pill">Slack + monday.com · AI workflow reliability</div>
+  </div>
+
+  <header class="hero" id="top">
+    <div class="eyebrow">Proposal · Workflow audit & stabilization</div>
+    <h1>Make your AI workflow reliable, consistent, and easier to manage.</h1>
+    <p>I can help diagnose the current Slack-to-monday.com agent, make routing rules maintainable, bring existing items into alignment, and move the service toward resilient, monitored hosting.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#approach">Explore my approach ↓</a>
+      <a class="btn secondary" href="https://leadflow-ai-swart.vercel.app" target="_blank" rel="noopener">View LeadFlow AI demo ↗</a>
+    </div>
+  </header>
+
+  <div class="quickfacts" aria-label="Project priorities">
+    <div class="fact"><small>Primary goal</small><strong>Reduce daily manual updates</strong></div>
+    <div class="fact"><small>Technical focus</small><strong>Deterministic, configurable routing</strong></div>
+    <div class="fact"><small>Proposed rate</small><strong>$15 / hour</strong></div>
+  </div>
+
+  <section id="understanding">
+    <div class="section-head"><div><h2>My understanding of the problem</h2><p>The agent already handles new items, but reliability breaks down in a few important places.</p></div><span class="tag">Understand before changing</span></div>
+    <div class="grid">
+      <article class="card issue"><div class="num">1</div><div><h3>Different behavior across boards</h3><p>Board-specific structures or routing assumptions may be causing the same workflow to behave differently.</p></div></article>
+      <article class="card issue"><div class="num">2</div><div><h3>Older items miss updated rules</h3><p>Existing in-progress work may not be re-evaluated when the workflow changes.</p></div></article>
+      <article class="card issue"><div class="num">3</div><div><h3>Manual work remains</h3><p>When automated status changes are incomplete or fail silently, the project manager has to intervene.</p></div></article>
+      <article class="card issue"><div class="num">4</div><div><h3>Hosting needs resilience</h3><p>Running on a local Mac Mini makes service recovery, monitoring, and operational continuity important to review.</p></div></article>
+    </div>
+    <details><summary>Initial hypothesis (to be validated)</summary><p>Some routing logic may be embedded in the agent prompt, while differences between board structures or how existing items are processed may contribute to inconsistent behavior. I would inspect the implementation, workflow charts, configuration, and logs before confirming the root cause.</p></details>
+  </section>
+
+  <section id="approach">
+    <div class="section-head"><div><h2>How I would approach the project</h2><p>Start with evidence, fix the highest-impact causes, and test before changing live workflows.</p></div><span class="tag">Phased implementation</span></div>
+    <div class="steps">
+      <article class="step"><h3>Audit & reproduce</h3><p>Compare the current implementation with your workflow charts and reproduce reported failures to locate the causes.</p></article>
+      <article class="step"><h3>Make routing configurable</h3><p>Move business rules from the agent prompt into a centralized configuration the project manager can edit safely.</p></article>
+      <article class="step"><h3>Standardize routing</h3><p>Test distinct rules for long-form content, trailers, clips, shorts, and thumbnails, including both reviewer phases per client.</p></article>
+      <article class="step"><h3>Backfill existing items</h3><p>Apply current rules to eligible in-progress items in controlled batches, preserving valid progress and avoiding duplicate updates.</p></article>
+      <article class="step"><h3>Add observability</h3><p>Log decisions, rules applied, API outcomes, and failures; add appropriate error handling, monitoring, and recovery.</p></article>
+      <article class="step"><h3>Deploy & document</h3><p>Move to suitable cloud hosting and provide SOPs for adding clients, changing workflows, and troubleshooting issues.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <div class="principle"><strong>Design principle: separate interpretation from execution.</strong><p>The AI can interpret a Slack message, while explicit, testable logic handles routing and validates monday.com updates. This makes behavior more consistent across boards, reduces errors, and makes failures easier to debug.</p></div>
+  </section>
+
+  <section id="work">
+    <div class="section-head"><div><h2>Relevant project: LeadFlow AI</h2><p>A working demonstration of AI decisions connected to structured business logic and automation.</p></div><span class="tag">Demo project</span></div>
+    <div class="project">
+      <div class="project-main">
+        <h3>AI-powered lead qualification & sales automation</h3>
+        <p>Built with Python, FastAPI, PostgreSQL, OpenAI, and LangGraph. It classifies incoming leads as HOT, WARM, or COLD, generates structured qualification results, and supports follow-up workflows with human approval.</p>
+        <p>While the use case differs from your Slack-to-monday.com system, it demonstrates my approach to connecting AI-driven decisions with structured business rules and workflow automation.</p>
+        <div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">PostgreSQL</span><span class="chip">OpenAI</span><span class="chip">LangGraph</span><span class="chip">n8n</span></div>
+      </div>
+      <div class="project-links">
+        <h3 style="margin-bottom:14px">Explore the work</h3>
+        <div class="link-list">
+          <a class="link-item" href="https://leadflow-ai-swart.vercel.app" target="_blank" rel="noopener">Live demo <span>↗</span></a>
+          <a class="link-item" href="https://leadflow-ai-swart.vercel.app/admin" target="_blank" rel="noopener">Admin dashboard <span>↗</span></a>
+          <a class="link-item" href="https://www.youtube.com/watch?v=VSylEjoHiZ8&t=6s" target="_blank" rel="noopener">Video walkthrough <span>↗</span></a>
+          <a class="link-item" href="https://github.com/Sajjad5037/leadflow-ai" target="_blank" rel="noopener">Source code <span>↗</span></a>
+          <a class="link-item" href="https://ai-solutions-sajjad.vercel.app" target="_blank" rel="noopener">Portfolio <span>↗</span></a>
+          <a class="link-item" href="https://github.com/Sajjad5037" target="_blank" rel="noopener">GitHub profile <span>↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="rate"><div><h2 style="margin:0;font-size:1.2rem">Proposed engagement</h2><p>I suggest starting with an audit and prioritized implementation plan before making changes to live workflows.</p></div><strong>$15 / hour</strong></div>
+  </section>
+
+  <footer class="footer"><div><strong>Sajjad Ali Noor</strong><br/>Python · AI integrations · Workflow automation</div><div><a href="https://ai-solutions-sajjad.vercel.app" target="_blank" rel="noopener">Portfolio</a> · <a href="https://github.com/Sajjad5037" target="_blank" rel="noopener">GitHub</a><br/><span>Thank you for considering my proposal.</span></div></footer>
+</div>
+</body>
+</html>
